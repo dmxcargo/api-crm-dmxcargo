@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/follow-ups?mode=upcoming&status=string&priority=WARM&prospectId=00000000-0000-4000-8000-000000000000&assignee=00000000-0000-4000-8000-000000000000&pageSize=1"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  mode: upcoming
+  status: string
+  priority: WARM
+  prospectId: 00000000-0000-4000-8000-000000000000
+  assignee: 00000000-0000-4000-8000-000000000000
+  pageSize: "1"
+order: 1000

@@ -1,0 +1,22 @@
+$kind: http-request
+name: Ubah customer; ADMIN/BILLING
+url: "{{baseUrl}}/customers/:customer"
+method: PUT
+headers:
+  Content-Type: application/json
+pathVariables:
+  customer: "{{customerId}}"
+body:
+  type: json
+  content: |-
+    {
+      "accountName": "PT Contoh Logistik",
+      "phone": "081234567890",
+      "email": "contoh@example.test",
+      "city": "Jakarta",
+      "province": "DKI Jakarta",
+      "industryCode": "LOGISTIK",
+      "isActive": true,
+      "version": 1
+    }
+order: 4000

@@ -1,0 +1,24 @@
+$kind: http-request
+name: Buat customer; ADMIN/BILLING
+url: "{{baseUrl}}/customers"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "accountName": "PT Contoh Logistik",
+      "phone": "081234567890",
+      "email": "contoh@example.test",
+      "city": "Jakarta",
+      "province": "DKI Jakarta",
+      "industryCode": "LOGISTIK"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      if (j.data && j.data.id) { pm.collectionVariables.set("customerId", j.data.id); }
+    language: text/javascript
+order: 2000

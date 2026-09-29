@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/customers?pageSize=1"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  - key: q
+    value: ""
+    disabled: true
+  - key: pageSize
+    value: "1"
+order: 1000

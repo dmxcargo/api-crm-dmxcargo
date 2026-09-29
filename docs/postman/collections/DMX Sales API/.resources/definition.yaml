@@ -1,0 +1,22 @@
+$kind: collection
+description: "Hasil generate dari backend/docs/openapi.json v1.4.0. Login dulu (token tersimpan otomatis), lalu klik berurutan. ID hasil create tersimpan otomatis ke variable. Detail perilaku: doc/API.md."
+variables:
+  baseUrl: http://localhost:8081/api/v1
+  token: ""
+  userId: ""
+  prospectId: ""
+  contactId: ""
+  activityId: ""
+  followUpId: ""
+  dealId: ""
+  customerId: ""
+  importId: ""
+  targetId: ""
+  exportId: ""
+  archiveId: ""
+auth:
+  - id: c637acc2-ad0c-4d55-9439-ffe8f2af8ac4
+    type: bearer
+    name: bearer auth
+    credentials:
+      token: "{{token}}"

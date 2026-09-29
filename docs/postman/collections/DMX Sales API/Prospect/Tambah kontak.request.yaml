@@ -1,0 +1,24 @@
+$kind: http-request
+url: "{{baseUrl}}/prospects/:prospect/contacts"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  prospect: "{{prospectId}}"
+body:
+  type: json
+  content: |-
+    {
+      "name": "Contoh",
+      "position": "string",
+      "phone": "081234567890",
+      "email": "contoh@example.test",
+      "primary": true
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      if (j.data && j.data.id) { pm.collectionVariables.set("contactId", j.data.id); }
+    language: text/javascript
+order: 10000

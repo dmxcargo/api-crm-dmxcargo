@@ -1,0 +1,7 @@
+$kind: http-request
+name: Tiga role tetap dan permission; ADMIN/BILLING
+url: "{{baseUrl}}/roles"
+method: GET
+headers:
+  Content-Type: application/json
+order: 6000

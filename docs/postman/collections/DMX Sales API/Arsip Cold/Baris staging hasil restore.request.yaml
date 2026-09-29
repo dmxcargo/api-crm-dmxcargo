@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/archives/:archive/staging?status=STAGED&page=1&pageSize=1"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  status: STAGED
+  page: "1"
+  pageSize: "1"
+pathVariables:
+  archive: "{{archiveId}}"
+order: 7000

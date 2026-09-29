@@ -1,0 +1,10 @@
+$kind: http-request
+name: Daftar user; ADMIN/BILLING
+url: "{{baseUrl}}/users?page=1&pageSize=1"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  page: "1"
+  pageSize: "1"
+order: 1000

@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/pipeline"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  - key: owner
+    value: ""
+    disabled: true
+order: 1000

@@ -1,0 +1,15 @@
+$kind: http-request
+name: Hitung kandidat arsip (hanya WON/LOST, tanpa job)
+url: "{{baseUrl}}/archives/preview"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "owner": "",
+      "dateFrom": "2026-10-01",
+      "dateTo": "2026-10-31"
+    }
+order: 1000

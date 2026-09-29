@@ -1,0 +1,17 @@
+$kind: http-request
+name: "Performa per sales: actual, achievement, closing rate kohort"
+url: "{{baseUrl}}/reports/performance?periodType=MONTH&period=2026-10&groupBy=sales"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  - key: periodType
+    value: MONTH
+  - key: period
+    value: 2026-10
+  - key: groupBy
+    value: sales
+  - key: owner
+    value: ""
+    disabled: true
+order: 2000

@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/imports/:import/cancel"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  import: "{{importId}}"
+order: 9000

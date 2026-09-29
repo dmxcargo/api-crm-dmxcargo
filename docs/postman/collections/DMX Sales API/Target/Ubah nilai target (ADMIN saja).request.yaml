@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/targets/:target"
+method: PUT
+headers:
+  Content-Type: application/json
+pathVariables:
+  target: "{{targetId}}"
+body:
+  type: json
+  content: |-
+    {
+      "version": 1,
+      "targetValue": 100000000
+    }
+order: 3000

@@ -1,0 +1,9 @@
+$kind: http-request
+name: ADMIN/BILLING semua user; SALES hanya diri sendiri, selainnya 404
+url: "{{baseUrl}}/users/:user"
+method: GET
+headers:
+  Content-Type: application/json
+pathVariables:
+  user: "{{userId}}"
+order: 3000

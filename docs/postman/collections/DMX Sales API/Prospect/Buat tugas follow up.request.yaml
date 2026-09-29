@@ -1,0 +1,24 @@
+$kind: http-request
+url: "{{baseUrl}}/prospects/:prospect/follow-ups"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  prospect: "{{prospectId}}"
+body:
+  type: json
+  content: |-
+    {
+      "scheduledAt": "2026-10-20T09:00:00+07:00",
+      "description": "Follow up contoh",
+      "priority": "WARM",
+      "notes": "string",
+      "assigneeUserId": "00000000-0000-4000-8000-000000000000"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      if (j.data && j.data.id) { pm.collectionVariables.set("followUpId", j.data.id); }
+    language: text/javascript
+order: 15000

@@ -1,0 +1,34 @@
+$kind: http-request
+url: "{{baseUrl}}/prospects/:prospect"
+method: PUT
+headers:
+  Content-Type: application/json
+pathVariables:
+  prospect: "{{prospectId}}"
+body:
+  type: json
+  content: |-
+    {
+      "accountName": "PT Contoh Logistik",
+      "phone": "081234567890",
+      "email": "contoh@example.test",
+      "picName": "string",
+      "picPosition": "string",
+      "city": "Jakarta",
+      "province": "DKI Jakarta",
+      "sourceCode": "GOOGLE_ADS",
+      "industryCode": "LOGISTIK",
+      "priority": "WARM",
+      "entryDate": "2026-10-05",
+      "nextFollowUpAt": "2026-10-20T09:00:00+07:00",
+      "nextAction": "string",
+      "lastProgress": "string",
+      "notes": "string",
+      "potentialValue": 15000000,
+      "paymentStatus": "string",
+      "customerType": "B2B",
+      "legacyId": "string",
+      "legacySourceRow": 1,
+      "version": 1
+    }
+order: 5000

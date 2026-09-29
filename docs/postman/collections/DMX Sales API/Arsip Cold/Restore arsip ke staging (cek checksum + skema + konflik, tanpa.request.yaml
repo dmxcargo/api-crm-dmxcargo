@@ -1,0 +1,9 @@
+$kind: http-request
+name: Restore arsip ke staging (cek checksum + skema + konflik, tanpa overwrite produksi)
+url: "{{baseUrl}}/archives/:archive/restore"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  archive: "{{archiveId}}"
+order: 6000

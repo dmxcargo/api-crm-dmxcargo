@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Sales\Infrastructure;
+
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Model;
+
+final class ArchiveStagingRecord extends Model
+{
+    use HasUuids;
+
+    protected $table = 'archive_staging';
+
+    protected $guarded = ['id'];
+
+    protected function casts(): array
+    {
+        return ['raw' => 'array', 'row_number' => 'integer'];
+    }
+}

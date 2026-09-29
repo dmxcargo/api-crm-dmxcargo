@@ -1,0 +1,15 @@
+$kind: http-request
+name: Arsip/buka arsip
+url: "{{baseUrl}}/prospects/:prospect/archive"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  prospect: "{{prospectId}}"
+body:
+  type: json
+  content: |-
+    {
+      "archived": true
+    }
+order: 9000

@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/prospects/:prospect/stage-history"
+method: GET
+headers:
+  Content-Type: application/json
+pathVariables:
+  prospect: "{{prospectId}}"
+order: 14000

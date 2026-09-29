@@ -1,0 +1,9 @@
+$kind: http-request
+name: Cabut seluruh token user; ADMIN/BILLING
+url: "{{baseUrl}}/users/:user/revoke-all"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  user: "{{userId}}"
+order: 5000

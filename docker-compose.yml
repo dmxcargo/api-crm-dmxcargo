@@ -1,0 +1,80 @@
+x-runtime: &runtime
+  image: api-crm-dmxcargo:local
+  environment:
+    APP_NAME: ${APP_NAME:-api.crm.dmxcargo.co.id}
+    APP_ENV: ${APP_ENV:-production}
+    APP_KEY: ${APP_KEY:?Set APP_KEY in the environment}
+    APP_DEBUG: ${APP_DEBUG:-false}
+    APP_URL: ${APP_URL:?Set APP_URL in the environment}
+    APP_LOCALE: ${APP_LOCALE:-id}
+    APP_FALLBACK_LOCALE: ${APP_FALLBACK_LOCALE:-id}
+    APP_TIMEZONE: ${APP_TIMEZONE:-UTC}
+    BUSINESS_TIMEZONE: ${BUSINESS_TIMEZONE:-Asia/Jakarta}
+    DB_CONNECTION: pgsql
+    DB_HOST: db
+    DB_PORT: "5432"
+    DB_DATABASE: ${DB_DATABASE:?Set DB_DATABASE in the environment}
+    DB_USERNAME: ${DB_USERNAME:?Set DB_USERNAME in the environment}
+    DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in the environment}
+    CACHE_STORE: ${CACHE_STORE:-database}
+    QUEUE_CONNECTION: ${QUEUE_CONNECTION:-database}
+    SESSION_DRIVER: ${SESSION_DRIVER:-array}
+    LOG_CHANNEL: ${LOG_CHANNEL:-stderr}
+    LOG_LEVEL: ${LOG_LEVEL:-info}
+    TOKEN_EXPIRATION_MINUTES: ${TOKEN_EXPIRATION_MINUTES:-480}
+    IDEMPOTENCY_TTL_HOURS: ${IDEMPOTENCY_TTL_HOURS:-24}
+    BCRYPT_ROUNDS: ${BCRYPT_ROUNDS:-12}
+    IMPORT_MAX_MB: ${IMPORT_MAX_MB:-20}
+    CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:?Set CORS_ALLOWED_ORIGINS in the environment}
+    ARCHIVE_PURGE_ENABLED: ${ARCHIVE_PURGE_ENABLED:-false}
+  depends_on:
+    db:
+      condition: service_healthy
+  volumes:
+    - private_exports:/var/www/html/storage/app/private-exports
+  restart: unless-stopped
+
+services:
+  db:
+    image: ${POSTGRES_IMAGE:-postgres:17-alpine}
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:?Set DB_DATABASE in the environment}
+      POSTGRES_USER: ${DB_USERNAME:?Set DB_USERNAME in the environment}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in the environment}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  app:
+    <<: *runtime
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@file_get_contents('http://127.0.0.1/api/v1/health') === false ? 1 : 0);"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  worker:
+    <<: *runtime
+    user: www-data
+    command: ["php", "artisan", "queue:work", "--tries=3"]
+
+  scheduler:
+    <<: *runtime
+    user: www-data
+    command: ["php", "artisan", "schedule:work"]
+
+volumes:
+  postgres_data:
+  private_exports:

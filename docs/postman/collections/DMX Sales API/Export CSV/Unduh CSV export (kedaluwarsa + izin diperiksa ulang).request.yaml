@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/exports/:export/download"
+method: GET
+headers:
+  Content-Type: application/json
+pathVariables:
+  export: "{{exportId}}"
+order: 4000

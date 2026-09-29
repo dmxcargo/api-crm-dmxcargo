@@ -1,0 +1,16 @@
+$kind: http-request
+name: Ubah master; ADMIN/BILLING
+url: "{{baseUrl}}/lost-reasons/:code"
+method: PUT
+headers:
+  Content-Type: application/json
+pathVariables:
+  code: HARGA
+body:
+  type: json
+  content: |-
+    {
+      "label": "string",
+      "isActive": true
+    }
+order: 9000

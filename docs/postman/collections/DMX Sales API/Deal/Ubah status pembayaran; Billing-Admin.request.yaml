@@ -1,0 +1,15 @@
+$kind: http-request
+name: Ubah status pembayaran; Billing/Admin
+url: "{{baseUrl}}/deals/:deal/payment-status"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  deal: "{{dealId}}"
+body:
+  type: json
+  content: |-
+    {
+      "paymentStatus": "string"
+    }
+order: 4000

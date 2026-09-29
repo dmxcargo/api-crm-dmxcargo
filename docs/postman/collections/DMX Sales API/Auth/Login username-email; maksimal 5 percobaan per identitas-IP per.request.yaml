@@ -1,0 +1,21 @@
+$kind: http-request
+name: Login username/email; maksimal 5 percobaan per identitas/IP per menit dan 30 per IP
+url: "{{baseUrl}}/auth/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "login": "uat.admin",
+      "password": "Uat-Pass-123456",
+      "deviceName": "postman"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      if (j.data && j.data.accessToken) { pm.collectionVariables.set("token", j.data.accessToken); }
+    language: text/javascript
+order: 1000

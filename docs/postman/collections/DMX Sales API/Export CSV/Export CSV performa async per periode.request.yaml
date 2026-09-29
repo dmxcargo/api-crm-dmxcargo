@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{baseUrl}}/exports/performance"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "columns": [],
+      "periodType": "MONTH",
+      "period": "2026-10",
+      "owner": ""
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      if (j.data && j.data.id) { pm.collectionVariables.set("exportId", j.data.id); }
+    language: text/javascript
+order: 2000

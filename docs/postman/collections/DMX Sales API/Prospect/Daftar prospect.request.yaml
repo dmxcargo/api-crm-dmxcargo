@@ -1,0 +1,33 @@
+$kind: http-request
+url: "{{baseUrl}}/prospects?page=1&pageSize=1&stage=FOLLOW_UP&priority=WARM&city=Jakarta&sourceCode=GOOGLE_ADS&dateFrom=2026-10-01&dateTo=2026-10-31&sort=string&includeArchived=True"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  - key: page
+    value: "1"
+  - key: pageSize
+    value: "1"
+  - key: q
+    value: ""
+    disabled: true
+  - key: owner
+    value: ""
+    disabled: true
+  - key: stage
+    value: FOLLOW_UP
+  - key: priority
+    value: WARM
+  - key: city
+    value: Jakarta
+  - key: sourceCode
+    value: GOOGLE_ADS
+  - key: dateFrom
+    value: 2026-10-01
+  - key: dateTo
+    value: 2026-10-31
+  - key: sort
+    value: string
+  - key: includeArchived
+    value: "True"
+order: 1000

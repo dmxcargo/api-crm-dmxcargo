@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/imports/:import"
+method: GET
+headers:
+  Content-Type: application/json
+pathVariables:
+  import: "{{importId}}"
+order: 4000

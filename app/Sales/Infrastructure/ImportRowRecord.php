@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Sales\Infrastructure;
+
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Model;
+
+final class ImportRowRecord extends Model
+{
+    use HasUuids;
+
+    protected $table = 'import_rows';
+
+    protected $guarded = ['id'];
+
+    protected function casts(): array
+    {
+        return ['raw' => 'array', 'normalized' => 'array', 'codes' => 'array',
+            'approved_fields' => 'array', 'row_number' => 'integer', 'version' => 'integer'];
+    }
+}

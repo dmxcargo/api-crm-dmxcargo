@@ -1,0 +1,14 @@
+$kind: http-request
+name: Tambah master; ADMIN/BILLING
+url: "{{baseUrl}}/lost-reasons"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "code": "string",
+      "label": "string"
+    }
+order: 6000

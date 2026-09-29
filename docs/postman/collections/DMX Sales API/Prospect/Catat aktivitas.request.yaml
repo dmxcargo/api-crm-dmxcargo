@@ -1,0 +1,30 @@
+$kind: http-request
+url: "{{baseUrl}}/prospects/:prospect/activities"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  prospect: "{{prospectId}}"
+body:
+  type: json
+  content: |-
+    {
+      "type": "CALL",
+      "activityAt": "2026-10-20T09:00:00+07:00",
+      "answered": true,
+      "durationMinutes": 1,
+      "attendance": "string",
+      "completion": "string",
+      "notes": "string",
+      "lastProgress": "string",
+      "nextAction": "string",
+      "nextFollowUpAt": "2026-10-20T09:00:00+07:00",
+      "taskPriority": "string"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      if (j.data && j.data.id) { pm.collectionVariables.set("activityId", j.data.id); }
+    language: text/javascript
+order: 13000

@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/archives/:archive/verify"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  archive: "{{archiveId}}"
+order: 4000

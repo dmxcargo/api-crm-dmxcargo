@@ -1,0 +1,11 @@
+$kind: http-request
+name: Audit append-only; ADMIN/BILLING
+url: "{{baseUrl}}/audit-logs?page=1&pageSize=1&action=string"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  page: "1"
+  pageSize: "1"
+  action: string
+order: 7000

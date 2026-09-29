@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{baseUrl}}/prospects/:prospect/deals"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  prospect: "{{prospectId}}"
+body:
+  type: json
+  content: |-
+    {
+      "quotationNumber": "string",
+      "potentialValue": 15000000,
+      "quotationValue": 12000000,
+      "paymentStatus": "string"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      if (j.data && j.data.id) { pm.collectionVariables.set("dealId", j.data.id); }
+    language: text/javascript
+order: 17000

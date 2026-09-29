@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{baseUrl}}/deals/:deal"
+method: PUT
+headers:
+  Content-Type: application/json
+pathVariables:
+  deal: "{{dealId}}"
+body:
+  type: json
+  content: |-
+    {
+      "version": 1,
+      "quotationNumber": "string",
+      "potentialValue": 15000000,
+      "quotationValue": 12000000,
+      "paymentStatus": "string"
+    }
+order: 1000

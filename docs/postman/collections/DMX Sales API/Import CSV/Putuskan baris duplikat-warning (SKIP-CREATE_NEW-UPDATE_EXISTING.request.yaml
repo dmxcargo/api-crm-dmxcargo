@@ -1,0 +1,15 @@
+$kind: http-request
+name: Putuskan baris duplikat/warning (SKIP/CREATE_NEW/UPDATE_EXISTING/MERGE_SELECTED_FIELDS)
+url: "{{baseUrl}}/imports/:import/review"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  import: "{{importId}}"
+body:
+  type: json
+  content: |-
+    {
+      "reviews": []
+    }
+order: 7000

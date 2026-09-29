@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/follow-ups/:followUp/complete"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  followUp: "{{followUpId}}"
+order: 2000

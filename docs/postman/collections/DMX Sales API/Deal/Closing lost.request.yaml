@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/deals/:deal/lost"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  deal: "{{dealId}}"
+body:
+  type: json
+  content: |-
+    {
+      "lostReasonCode": "HARGA"
+    }
+order: 3000

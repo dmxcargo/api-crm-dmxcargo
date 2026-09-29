@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/prospects/:prospect/stage"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  prospect: "{{prospectId}}"
+body:
+  type: json
+  content: |-
+    {
+      "stage": "FOLLOW_UP",
+      "version": 1
+    }
+order: 8000

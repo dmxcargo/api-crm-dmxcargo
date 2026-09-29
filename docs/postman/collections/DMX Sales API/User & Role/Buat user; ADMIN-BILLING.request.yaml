@@ -1,0 +1,23 @@
+$kind: http-request
+name: Buat user; ADMIN/BILLING
+url: "{{baseUrl}}/users"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Contoh",
+      "username": "sales.baru",
+      "email": "contoh@example.test",
+      "password": "Uat-Pass-123456",
+      "role": "ADMIN"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      if (j.data && j.data.id) { pm.collectionVariables.set("userId", j.data.id); }
+    language: text/javascript
+order: 2000

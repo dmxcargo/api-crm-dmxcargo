@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{baseUrl}}/imports"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "fileName": "contoh.csv",
+      "content": "external_id,account_name\nEXT-0001,PT Contoh\n"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      if (j.data && j.data.id) { pm.collectionVariables.set("importId", j.data.id); }
+    language: text/javascript
+order: 1000

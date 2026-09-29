@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{baseUrl}}/targets"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "userId": "00000000-0000-4000-8000-000000000000",
+      "periodType": "MONTH",
+      "period": "2026-10",
+      "targetValue": 100000000
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      if (j.data && j.data.id) { pm.collectionVariables.set("targetId", j.data.id); }
+    language: text/javascript
+order: 2000

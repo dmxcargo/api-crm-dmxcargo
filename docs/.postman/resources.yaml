@@ -1,0 +1,11 @@
+# Use this workspace to collaborate
+workspace:
+  id: 89de17b6-19da-4418-8391-ecdd6aa09112
+
+localResources:
+  specs:
+    - ../openapi.json
+
+cloudResources:
+  collections:
+    ../postman/collections/DMX Sales API: 3412ff29-326b-4944-b43c-ab6266b5762d

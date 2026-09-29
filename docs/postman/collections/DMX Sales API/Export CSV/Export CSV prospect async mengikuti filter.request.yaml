@@ -1,0 +1,26 @@
+$kind: http-request
+url: "{{baseUrl}}/exports/prospects"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "columns": [],
+      "q": "",
+      "stage": "FOLLOW_UP",
+      "priority": "WARM",
+      "city": "Jakarta",
+      "sourceCode": "GOOGLE_ADS",
+      "dateFrom": "2026-10-01",
+      "dateTo": "2026-10-31",
+      "owner": ""
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      if (j.data && j.data.id) { pm.collectionVariables.set("exportId", j.data.id); }
+    language: text/javascript
+order: 1000

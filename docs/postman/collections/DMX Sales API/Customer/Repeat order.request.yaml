@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/customers/:customer/deals"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  customer: "{{customerId}}"
+body:
+  type: json
+  content: |-
+    {
+      "prospectId": "00000000-0000-4000-8000-000000000000"
+    }
+order: 6000

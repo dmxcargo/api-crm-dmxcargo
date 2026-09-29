@@ -1,0 +1,15 @@
+$kind: http-request
+name: Pindah owner; ADMIN/BILLING
+url: "{{baseUrl}}/prospects/:prospect/assign"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  prospect: "{{prospectId}}"
+body:
+  type: json
+  content: |-
+    {
+      "ownerUserId": "00000000-0000-4000-8000-000000000000"
+    }
+order: 7000

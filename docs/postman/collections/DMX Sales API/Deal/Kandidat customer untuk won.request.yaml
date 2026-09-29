@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/deals/:deal/customer-candidates"
+method: GET
+headers:
+  Content-Type: application/json
+pathVariables:
+  deal: "{{dealId}}"
+order: 5000

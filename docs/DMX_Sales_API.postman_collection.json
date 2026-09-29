@@ -1,0 +1,3235 @@
+{
+  "info": {
+    "name": "DMX Sales API",
+    "_postman_id": "b67a7c39-b965-4f16-b983-1c295edc1941",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Hasil generate dari backend/docs/openapi.json v1.4.0. Login dulu (token tersimpan otomatis), lalu klik berurutan. ID hasil create tersimpan otomatis ke variable. Detail perilaku: doc/API.md."
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8081/api/v1"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "prospectId",
+      "value": ""
+    },
+    {
+      "key": "contactId",
+      "value": ""
+    },
+    {
+      "key": "activityId",
+      "value": ""
+    },
+    {
+      "key": "followUpId",
+      "value": ""
+    },
+    {
+      "key": "dealId",
+      "value": ""
+    },
+    {
+      "key": "customerId",
+      "value": ""
+    },
+    {
+      "key": "importId",
+      "value": ""
+    },
+    {
+      "key": "targetId",
+      "value": ""
+    },
+    {
+      "key": "exportId",
+      "value": ""
+    },
+    {
+      "key": "archiveId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login username/email; maksimal 5 percobaan per identitas/IP per menit dan 30 per IP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"uat.admin\",\n  \"password\": \"Uat-Pass-123456\",\n  \"deviceName\": \"postman\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.accessToken) { pm.collectionVariables.set(\"token\", j.data.accessToken); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Profil pemilik token",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cabut token saat ini",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cabut seluruh token milik sendiri",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/revoke-all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "revoke-all"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User & Role",
+      "item": [
+        {
+          "name": "Daftar user; ADMIN/BILLING",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "",
+                  "description": "Cari nama, username, atau email",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "pageSize",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buat user; ADMIN/BILLING",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Contoh\",\n  \"username\": \"sales.baru\",\n  \"email\": \"contoh@example.test\",\n  \"password\": \"Uat-Pass-123456\",\n  \"role\": \"ADMIN\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"userId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "ADMIN/BILLING semua user; SALES hanya diri sendiri, selainnya 404",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/:user",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":user"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "user",
+                  "value": "{{userId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ubah user/role/status/password; ADMIN/BILLING; wajib versi terbaru",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/:user",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":user"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "user",
+                  "value": "{{userId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Contoh\",\n  \"username\": \"sales.baru\",\n  \"email\": \"contoh@example.test\",\n  \"password\": \"Uat-Pass-123456\",\n  \"role\": \"ADMIN\",\n  \"isActive\": true,\n  \"version\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cabut seluruh token user; ADMIN/BILLING",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/:user/revoke-all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":user",
+                "revoke-all"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "user",
+                  "value": "{{userId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tiga role tetap dan permission; ADMIN/BILLING",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Audit append-only; ADMIN/BILLING",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/audit-logs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "audit-logs"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "pageSize",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "action",
+                  "value": "string",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Master Data",
+      "item": [
+        {
+          "name": "Daftar sumber prospek",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospect-sources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospect-sources"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tambah master; ADMIN/BILLING",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospect-sources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospect-sources"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"string\",\n  \"label\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Daftar industry",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/industries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "industries"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tambah master; ADMIN/BILLING",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/industries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "industries"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"string\",\n  \"label\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Daftar alasan lost",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/lost-reasons",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lost-reasons"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tambah master; ADMIN/BILLING",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/lost-reasons",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lost-reasons"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"string\",\n  \"label\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ubah master; ADMIN/BILLING",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospect-sources/:code",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospect-sources",
+                ":code"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "code",
+                  "value": "GOOGLE_ADS"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"string\",\n  \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ubah master; ADMIN/BILLING",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/industries/:code",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "industries",
+                ":code"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "code",
+                  "value": "LOGISTIK"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"string\",\n  \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ubah master; ADMIN/BILLING",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/lost-reasons/:code",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lost-reasons",
+                ":code"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "code",
+                  "value": "HARGA"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"string\",\n  \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Prospect",
+      "item": [
+        {
+          "name": "Daftar prospect",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "pageSize",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "owner",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "stage",
+                  "value": "FOLLOW_UP",
+                  "disabled": false
+                },
+                {
+                  "key": "priority",
+                  "value": "WARM",
+                  "disabled": false
+                },
+                {
+                  "key": "city",
+                  "value": "Jakarta",
+                  "disabled": false
+                },
+                {
+                  "key": "sourceCode",
+                  "value": "GOOGLE_ADS",
+                  "disabled": false
+                },
+                {
+                  "key": "dateFrom",
+                  "value": "2026-10-01",
+                  "disabled": false
+                },
+                {
+                  "key": "dateTo",
+                  "value": "2026-10-31",
+                  "disabled": false
+                },
+                {
+                  "key": "sort",
+                  "value": "string",
+                  "disabled": false
+                },
+                {
+                  "key": "includeArchived",
+                  "value": "True",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buat prospect",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountName\": \"PT Contoh Logistik\",\n  \"phone\": \"081234567890\",\n  \"email\": \"contoh@example.test\",\n  \"picName\": \"string\",\n  \"picPosition\": \"string\",\n  \"city\": \"Jakarta\",\n  \"province\": \"DKI Jakarta\",\n  \"sourceCode\": \"GOOGLE_ADS\",\n  \"industryCode\": \"LOGISTIK\",\n  \"stage\": \"FOLLOW_UP\",\n  \"priority\": \"WARM\",\n  \"entryDate\": \"2026-10-05\",\n  \"nextFollowUpAt\": \"2026-10-20T09:00:00+07:00\",\n  \"nextAction\": \"string\",\n  \"lastProgress\": \"string\",\n  \"notes\": \"string\",\n  \"potentialValue\": 15000000,\n  \"paymentStatus\": \"string\",\n  \"customerType\": \"B2B\",\n  \"legacyId\": \"string\",\n  \"legacySourceRow\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"prospectId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Kandidat duplikat",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/duplicates",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                "duplicates"
+              ],
+              "query": [
+                {
+                  "key": "phone",
+                  "value": "081234567890",
+                  "disabled": false
+                },
+                {
+                  "key": "phoneNormalized",
+                  "value": "string",
+                  "disabled": false
+                },
+                {
+                  "key": "email",
+                  "value": "contoh@example.test",
+                  "disabled": false
+                },
+                {
+                  "key": "accountName",
+                  "value": "PT Contoh Logistik",
+                  "disabled": false
+                },
+                {
+                  "key": "city",
+                  "value": "Jakarta",
+                  "disabled": false
+                },
+                {
+                  "key": "legacyId",
+                  "value": "string",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detail prospect + kontak",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ubah prospect",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountName\": \"PT Contoh Logistik\",\n  \"phone\": \"081234567890\",\n  \"email\": \"contoh@example.test\",\n  \"picName\": \"string\",\n  \"picPosition\": \"string\",\n  \"city\": \"Jakarta\",\n  \"province\": \"DKI Jakarta\",\n  \"sourceCode\": \"GOOGLE_ADS\",\n  \"industryCode\": \"LOGISTIK\",\n  \"priority\": \"WARM\",\n  \"entryDate\": \"2026-10-05\",\n  \"nextFollowUpAt\": \"2026-10-20T09:00:00+07:00\",\n  \"nextAction\": \"string\",\n  \"lastProgress\": \"string\",\n  \"notes\": \"string\",\n  \"potentialValue\": 15000000,\n  \"paymentStatus\": \"string\",\n  \"customerType\": \"B2B\",\n  \"legacyId\": \"string\",\n  \"legacySourceRow\": 1,\n  \"version\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Soft delete prospect",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pindah owner; ADMIN/BILLING",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect/assign",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect",
+                "assign"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ownerUserId\": \"00000000-0000-4000-8000-000000000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pindah stage",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect/stage",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect",
+                "stage"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"stage\": \"FOLLOW_UP\",\n  \"version\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Arsip/buka arsip",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect/archive",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect",
+                "archive"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"archived\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tambah kontak",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect/contacts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect",
+                "contacts"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Contoh\",\n  \"position\": \"string\",\n  \"phone\": \"081234567890\",\n  \"email\": \"contoh@example.test\",\n  \"primary\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"contactId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Hapus kontak",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect/contacts/:contactId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect",
+                "contacts",
+                ":contactId"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                },
+                {
+                  "key": "contactId",
+                  "value": "{{contactId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Timeline aktivitas",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect/activities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect",
+                "activities"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "string",
+                  "disabled": false
+                },
+                {
+                  "key": "pageSize",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Catat aktivitas",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect/activities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect",
+                "activities"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"CALL\",\n  \"activityAt\": \"2026-10-20T09:00:00+07:00\",\n  \"answered\": true,\n  \"durationMinutes\": 1,\n  \"attendance\": \"string\",\n  \"completion\": \"string\",\n  \"notes\": \"string\",\n  \"lastProgress\": \"string\",\n  \"nextAction\": \"string\",\n  \"nextFollowUpAt\": \"2026-10-20T09:00:00+07:00\",\n  \"taskPriority\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"activityId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Riwayat stage",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect/stage-history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect",
+                "stage-history"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buat tugas follow up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect/follow-ups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect",
+                "follow-ups"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scheduledAt\": \"2026-10-20T09:00:00+07:00\",\n  \"description\": \"Follow up contoh\",\n  \"priority\": \"WARM\",\n  \"notes\": \"string\",\n  \"assigneeUserId\": \"00000000-0000-4000-8000-000000000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"followUpId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Deal milik prospect",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect/deals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect",
+                "deals"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buat deal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prospects/:prospect/deals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prospects",
+                ":prospect",
+                "deals"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "prospect",
+                  "value": "{{prospectId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quotationNumber\": \"string\",\n  \"potentialValue\": 15000000,\n  \"quotationValue\": 12000000,\n  \"paymentStatus\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"dealId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Follow-up",
+      "item": [
+        {
+          "name": "Daftar follow up",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/follow-ups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "follow-ups"
+              ],
+              "query": [
+                {
+                  "key": "mode",
+                  "value": "upcoming",
+                  "disabled": false
+                },
+                {
+                  "key": "status",
+                  "value": "string",
+                  "disabled": false
+                },
+                {
+                  "key": "priority",
+                  "value": "WARM",
+                  "disabled": false
+                },
+                {
+                  "key": "prospectId",
+                  "value": "00000000-0000-4000-8000-000000000000",
+                  "disabled": false
+                },
+                {
+                  "key": "assignee",
+                  "value": "00000000-0000-4000-8000-000000000000",
+                  "disabled": false
+                },
+                {
+                  "key": "pageSize",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Selesaikan follow up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/follow-ups/:followUp/complete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "follow-ups",
+                ":followUp",
+                "complete"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "followUp",
+                  "value": "{{followUpId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Jadwal ulang follow up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/follow-ups/:followUp/reschedule",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "follow-ups",
+                ":followUp",
+                "reschedule"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "followUp",
+                  "value": "{{followUpId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scheduledAt\": \"2026-10-20T09:00:00+07:00\",\n  \"priority\": \"WARM\",\n  \"status\": \"string\",\n  \"notes\": \"string\",\n  \"version\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pipeline",
+      "item": [
+        {
+          "name": "Board pipeline",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pipeline",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pipeline"
+              ],
+              "query": [
+                {
+                  "key": "owner",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Deal",
+      "item": [
+        {
+          "name": "Ubah deal",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/deals/:deal",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "deals",
+                ":deal"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "deal",
+                  "value": "{{dealId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": 1,\n  \"quotationNumber\": \"string\",\n  \"potentialValue\": 15000000,\n  \"quotationValue\": 12000000,\n  \"paymentStatus\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Closing won",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/deals/:deal/won",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "deals",
+                ":deal",
+                "won"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "deal",
+                  "value": "{{dealId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"closingDate\": \"2026-10-20\",\n  \"closingValue\": 25000000,\n  \"customerMode\": \"new\",\n  \"customerId\": \"00000000-0000-4000-8000-000000000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Closing lost",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/deals/:deal/lost",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "deals",
+                ":deal",
+                "lost"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "deal",
+                  "value": "{{dealId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lostReasonCode\": \"HARGA\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ubah status pembayaran; Billing/Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/deals/:deal/payment-status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "deals",
+                ":deal",
+                "payment-status"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "deal",
+                  "value": "{{dealId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentStatus\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Kandidat customer untuk won",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/deals/:deal/customer-candidates",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "deals",
+                ":deal",
+                "customer-candidates"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "deal",
+                  "value": "{{dealId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Riwayat pembayaran",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/deals/:deal/payment-history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "deals",
+                ":deal",
+                "payment-history"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "deal",
+                  "value": "{{dealId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Customer",
+      "item": [
+        {
+          "name": "Daftar customer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "pageSize",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buat customer; ADMIN/BILLING",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountName\": \"PT Contoh Logistik\",\n  \"phone\": \"081234567890\",\n  \"email\": \"contoh@example.test\",\n  \"city\": \"Jakarta\",\n  \"province\": \"DKI Jakarta\",\n  \"industryCode\": \"LOGISTIK\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"customerId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Detail customer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers/:customer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers",
+                ":customer"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "customer",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ubah customer; ADMIN/BILLING",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers/:customer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers",
+                ":customer"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "customer",
+                  "value": "{{customerId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountName\": \"PT Contoh Logistik\",\n  \"phone\": \"081234567890\",\n  \"email\": \"contoh@example.test\",\n  \"city\": \"Jakarta\",\n  \"province\": \"DKI Jakarta\",\n  \"industryCode\": \"LOGISTIK\",\n  \"isActive\": true,\n  \"version\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deal milik customer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers/:customer/deals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers",
+                ":customer",
+                "deals"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "customer",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Repeat order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers/:customer/deals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers",
+                ":customer",
+                "deals"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "customer",
+                  "value": "{{customerId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prospectId\": \"00000000-0000-4000-8000-000000000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Target",
+      "item": [
+        {
+          "name": "Daftar target (SALES hanya miliknya)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/targets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "targets"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "00000000-0000-4000-8000-000000000000",
+                  "disabled": false
+                },
+                {
+                  "key": "periodType",
+                  "value": "MONTH",
+                  "disabled": false
+                },
+                {
+                  "key": "period",
+                  "value": "2026-10",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buat target sales per periode (ADMIN saja)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/targets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "targets"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"00000000-0000-4000-8000-000000000000\",\n  \"periodType\": \"MONTH\",\n  \"period\": \"2026-10\",\n  \"targetValue\": 100000000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"targetId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ubah nilai target (ADMIN saja)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/targets/:target",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "targets",
+                ":target"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "target",
+                  "value": "{{targetId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": 1,\n  \"targetValue\": 100000000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Dashboard & Laporan",
+      "item": [
+        {
+          "name": "Agregat dashboard sesuai scope role",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboard"
+              ],
+              "query": [
+                {
+                  "key": "owner",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "stage",
+                  "value": "FOLLOW_UP",
+                  "disabled": false
+                },
+                {
+                  "key": "sourceCode",
+                  "value": "GOOGLE_ADS",
+                  "disabled": false
+                },
+                {
+                  "key": "customerType",
+                  "value": "B2B",
+                  "disabled": false
+                },
+                {
+                  "key": "priority",
+                  "value": "WARM",
+                  "disabled": false
+                },
+                {
+                  "key": "from",
+                  "value": "2026-10-05",
+                  "disabled": false
+                },
+                {
+                  "key": "to",
+                  "value": "2026-10-05",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Performa per sales: actual, achievement, closing rate kohort",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/performance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "performance"
+              ],
+              "query": [
+                {
+                  "key": "periodType",
+                  "value": "MONTH",
+                  "disabled": false
+                },
+                {
+                  "key": "period",
+                  "value": "2026-10",
+                  "disabled": false
+                },
+                {
+                  "key": "groupBy",
+                  "value": "sales",
+                  "disabled": false
+                },
+                {
+                  "key": "owner",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Laporan tahunan agregat + per sales",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports/annual",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports",
+                "annual"
+              ],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2026",
+                  "disabled": false
+                },
+                {
+                  "key": "owner",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Import CSV",
+      "item": [
+        {
+          "name": "Upload CSV import baru ke staging",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/imports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "imports"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileName\": \"contoh.csv\",\n  \"content\": \"external_id,account_name\\nEXT-0001,PT Contoh\\n\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"importId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Tambah batch CSV ke job DRAFT",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/imports/:import/batches",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "imports",
+                ":import",
+                "batches"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "import",
+                  "value": "{{importId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"external_id,account_name\\nEXT-0001,PT Contoh\\n\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Jalankan validasi antrian atas staging",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/imports/:import/validate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "imports",
+                ":import",
+                "validate"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "import",
+                  "value": "{{importId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detail job import + rekonsiliasi",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/imports/:import",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "imports",
+                ":import"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "import",
+                  "value": "{{importId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Baris staging import",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/imports/:import/rows",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "imports",
+                ":import",
+                "rows"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "VALID",
+                  "disabled": false
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "pageSize",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "key": "import",
+                  "value": "{{importId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unduh CSV baris gagal",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/imports/:import/errors.csv",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "imports",
+                ":import",
+                "errors.csv"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "import",
+                  "value": "{{importId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Putuskan baris duplikat/warning (SKIP/CREATE_NEW/UPDATE_EXISTING/MERGE_SELECTED_FIELDS)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/imports/:import/review",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "imports",
+                ":import",
+                "review"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "import",
+                  "value": "{{importId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reviews\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Commit baris yang disetujui per batch (dapat resume)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/imports/:import/commit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "imports",
+                ":import",
+                "commit"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "import",
+                  "value": "{{importId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Batalkan job sebelum selesai (batch committed tidak dihapus)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/imports/:import/cancel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "imports",
+                ":import",
+                "cancel"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "import",
+                  "value": "{{importId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Export CSV",
+      "item": [
+        {
+          "name": "Export CSV prospect async mengikuti filter",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/exports/prospects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "exports",
+                "prospects"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"columns\": [],\n  \"q\": \"\",\n  \"stage\": \"FOLLOW_UP\",\n  \"priority\": \"WARM\",\n  \"city\": \"Jakarta\",\n  \"sourceCode\": \"GOOGLE_ADS\",\n  \"dateFrom\": \"2026-10-01\",\n  \"dateTo\": \"2026-10-31\",\n  \"owner\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"exportId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Export CSV performa async per periode",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/exports/performance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "exports",
+                "performance"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"columns\": [],\n  \"periodType\": \"MONTH\",\n  \"period\": \"2026-10\",\n  \"owner\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"exportId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Status job export",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/exports/:export",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "exports",
+                ":export"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "export",
+                  "value": "{{exportId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unduh CSV export (kedaluwarsa + izin diperiksa ulang)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/exports/:export/download",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "exports",
+                ":export",
+                "download"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "export",
+                  "value": "{{exportId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Arsip Cold",
+      "item": [
+        {
+          "name": "Hitung kandidat arsip (hanya WON/LOST, tanpa job)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/archives/preview",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "archives",
+                "preview"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"owner\": \"\",\n  \"dateFrom\": \"2026-10-01\",\n  \"dateTo\": \"2026-10-31\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buat job arsip csv.gz + manifest (async)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/archives",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "archives"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"owner\": \"\",\n  \"dateFrom\": \"2026-10-01\",\n  \"dateTo\": \"2026-10-31\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const j = pm.response.json();",
+                  "if (j.data && j.data.id) { pm.collectionVariables.set(\"archiveId\", j.data.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Detail job arsip + manifest",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/archives/:archive",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "archives",
+                ":archive"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "archive",
+                  "value": "{{archiveId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verifikasi baca-ulang + checksum arsip",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/archives/:archive/verify",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "archives",
+                ":archive",
+                "verify"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "archive",
+                  "value": "{{archiveId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buat + verifikasi salinan kedua arsip",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/archives/:archive/copy",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "archives",
+                ":archive",
+                "copy"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "archive",
+                  "value": "{{archiveId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Restore arsip ke staging (cek checksum + skema + konflik, tanpa overwrite produksi)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/archives/:archive/restore",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "archives",
+                ":archive",
+                "restore"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "archive",
+                  "value": "{{archiveId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Baris staging hasil restore",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/archives/:archive/staging",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "archives",
+                ":archive",
+                "staging"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "STAGED",
+                  "disabled": false
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "pageSize",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "key": "archive",
+                  "value": "{{archiveId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Purge arsip (terkunci config + salinan kedua + retensi + approval)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/archives/:archive/purge",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "archives",
+                ":archive",
+                "purge"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "archive",
+                  "value": "{{archiveId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approved\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Liveness API",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Readiness koneksi database",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ready",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ready"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

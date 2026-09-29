@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/targets?userId=00000000-0000-4000-8000-000000000000&periodType=MONTH&period=2026-10"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  userId: 00000000-0000-4000-8000-000000000000
+  periodType: MONTH
+  period: 2026-10
+order: 1000

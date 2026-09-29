@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/imports/:import/batches"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  import: "{{importId}}"
+body:
+  type: json
+  content: |-
+    {
+      "content": "external_id,account_name\nEXT-0001,PT Contoh\n"
+    }
+order: 2000

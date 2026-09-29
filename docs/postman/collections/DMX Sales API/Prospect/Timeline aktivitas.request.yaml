@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{baseUrl}}/prospects/:prospect/activities?type=string&pageSize=1"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  type: string
+  pageSize: "1"
+pathVariables:
+  prospect: "{{prospectId}}"
+order: 12000

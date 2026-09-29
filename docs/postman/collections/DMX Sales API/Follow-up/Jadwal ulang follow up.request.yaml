@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{baseUrl}}/follow-ups/:followUp/reschedule"
+method: POST
+headers:
+  Content-Type: application/json
+pathVariables:
+  followUp: "{{followUpId}}"
+body:
+  type: json
+  content: |-
+    {
+      "scheduledAt": "2026-10-20T09:00:00+07:00",
+      "priority": "WARM",
+      "status": "string",
+      "notes": "string",
+      "version": 1
+    }
+order: 3000

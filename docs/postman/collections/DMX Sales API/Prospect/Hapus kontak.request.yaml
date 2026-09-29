@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{baseUrl}}/prospects/:prospect/contacts/:contactId"
+method: DELETE
+headers:
+  Content-Type: application/json
+pathVariables:
+  prospect: "{{prospectId}}"
+  contactId: "{{contactId}}"
+order: 11000

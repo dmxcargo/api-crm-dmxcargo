@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/imports/:import/rows?status=VALID&page=1&pageSize=1"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  status: VALID
+  page: "1"
+  pageSize: "1"
+pathVariables:
+  import: "{{importId}}"
+order: 5000

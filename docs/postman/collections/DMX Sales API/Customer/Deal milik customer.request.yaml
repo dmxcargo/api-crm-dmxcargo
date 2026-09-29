@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/customers/:customer/deals"
+method: GET
+headers:
+  Content-Type: application/json
+pathVariables:
+  customer: "{{customerId}}"
+order: 5000

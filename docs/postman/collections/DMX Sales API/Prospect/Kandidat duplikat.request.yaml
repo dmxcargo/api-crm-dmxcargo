@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/prospects/duplicates?phone=081234567890&phoneNormalized=string&email=contoh@example.test&accountName=PT Contoh Logistik&city=Jakarta&legacyId=string"
+method: GET
+headers:
+  Content-Type: application/json
+queryParams:
+  phone: "081234567890"
+  phoneNormalized: string
+  email: contoh@example.test
+  accountName: PT Contoh Logistik
+  city: Jakarta
+  legacyId: string
+order: 3000

@@ -1,0 +1,16 @@
+$kind: http-request
+name: Ubah master; ADMIN/BILLING
+url: "{{baseUrl}}/prospect-sources/:code"
+method: PUT
+headers:
+  Content-Type: application/json
+pathVariables:
+  code: GOOGLE_ADS
+body:
+  type: json
+  content: |-
+    {
+      "label": "string",
+      "isActive": true
+    }
+order: 7000
