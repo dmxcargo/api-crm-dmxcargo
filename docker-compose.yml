@@ -1,5 +1,8 @@
 x-runtime: &runtime
   image: api-crm-dmxcargo:local
+  build:
+    context: .
+    dockerfile: Dockerfile
   environment:
     APP_NAME: ${APP_NAME:-api.crm.dmxcargo.co.id}
     APP_ENV: ${APP_ENV:-production}
@@ -53,9 +56,6 @@ services:
 
   app:
     <<: *runtime
-    build:
-      context: .
-      dockerfile: Dockerfile
     expose:
       - "80"
     healthcheck:
